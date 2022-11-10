@@ -6,19 +6,26 @@ const stringsArr = [50, 100, 150, 200];
 const buttonArr = [false, false, false, false];
 
 let speed = 0;
-let gameover = false;
 let score = 0;
-const scoreLabel = document.querySelector(`#score-container span`);;
+const scoreLabel = document.querySelector(`#score-container span`);
 let requestID;
+const home = document.getElementById("home-screen");
+const canvasG = document.getElementById("game-canvas");
+const scoreL = document.getElementById("score-container");
+const gameOverScreen = document.getElementById("game-over-screen");
+const gameOScore = document.querySelector(`#game-over-score span`);
+const winScreen = document.getElementById("win-screen");
+const winScoreL = document.querySelector(`#win-score span`)
+const howTo = document.getElementById("how-to-play-screen");
+
 
 const SONG = new Audio();
-SONG.src = "../assets/hero.mp3"
+SONG.src = "../assets/hero.mp3";
 SONG.volume = 0.2;
 //SONG.loop = true;
 //SONG.play();
 //SONG.pause();
 //SONG.currentTime = 0;
-
 
 const arr = [
   [0, 0, 0, 0],
@@ -132,7 +139,6 @@ const arr = [
   [0, 0, 0, 0],
   [1, 0, 0, 0],
   [0, 0, 1, 0],
-
 ];
 
 function clearCanvas() {
@@ -200,29 +206,43 @@ function drawSong() {
       }
       //add speed to Y pos
       if (arr[i][j] > 0) {
-        if(positionY + speed  >= 400 && positionY + speed <= 440 && buttonArr[0]===true){
-            arr[i][j] = 0;
-            score += 25;
-            console.log("ya le di al verde",positionY + speed);
-        }else if(positionY + speed  >= 400 && positionY + speed <= 440 && buttonArr[1]===true){
-            console.log("ya le di al rojo",positionY + speed);
-            arr[i][j] = 0;
-            score += 25;
-        }else if(positionY + speed  >= 400 && positionY + speed <= 440 && buttonArr[2]===true){
-            console.log("ya le di amarillo",positionY + speed);
-            arr[i][j] = 0;
-            score += 25;
-        }else if(positionY + speed  >= 400 && positionY + speed <= 440 && buttonArr[3]===true){
-            console.log("ya le di azul",positionY + speed);
-            arr[i][j] = 0;
-            score += 25;
-        } if(positionY + speed > 480){
-            score -= 25;
-            arr[i][j] = 0;
-
+        if (
+          positionY + speed >= 400 &&
+          positionY + speed <= 440 &&
+          buttonArr[0] === true
+        ) {
+          arr[i][j] = 0;
+          score += 25;
+          console.log("ya le di al verde", positionY + speed);
+        } else if (
+          positionY + speed >= 400 &&
+          positionY + speed <= 440 &&
+          buttonArr[1] === true
+        ) {
+          console.log("ya le di al rojo", positionY + speed);
+          arr[i][j] = 0;
+          score += 25;
+        } else if (
+          positionY + speed >= 400 &&
+          positionY + speed <= 440 &&
+          buttonArr[2] === true
+        ) {
+          console.log("ya le di amarillo", positionY + speed);
+          arr[i][j] = 0;
+          score += 25;
+        } else if (
+          positionY + speed >= 400 &&
+          positionY + speed <= 440 &&
+          buttonArr[3] === true
+        ) {
+          console.log("ya le di azul", positionY + speed);
+          arr[i][j] = 0;
+          score += 25;
         }
-
-
+        if (positionY + speed > 480) {
+          score -= 25;
+          arr[i][j] = 0;
+        }
 
         // positionY + 40 > -((canvas.height * 4)/5 + 40)&& positionY < -((canvas.height * 4)/5
 
@@ -230,9 +250,6 @@ function drawSong() {
         ctx.fillRect(positionX, positionY + speed, 40, 40);
         // console.log(`dibuje una nota en ${positionY}`);
       }
-
-      
-
     }
 
     positionY -= 50;
@@ -252,20 +269,39 @@ function updateCanvas() {
   drawGuitar();
   drawButtons();
   drawSong();
-  if(score < -500){
-    
-    requestID = undefined
+  
+
+  if (score < -350) {
+    requestID = undefined;
+    SONG.pause();
     console.log("perdimos");
+    
+    gameOverScreen.style.display = "block"
+    canvasG.style.display = "none"
+    gameOScore.innerHTML = score;
+    
   }
+
+  if(score >= 500){
+    requestID = undefined;
+    SONG.pause();
+    console.log("ganaste");
+    canvasG.style.display = "none"
+    winScreen.style.display = "block"
+    winScoreL.innerHTML = score;
+
+
+  }
+
+
+  
   scoreLabel.innerHTML = score;
   console.log("score", score);
 
+  //   requestAnimationFrame(updateCanvas);
 
-//   requestAnimationFrame(updateCanvas);
-  
   if (requestID) {
     requestID = requestAnimationFrame(updateCanvas);
-    
   }
 }
 
@@ -309,31 +345,83 @@ addEventListener("keyup", (event) => {
   }
 });
 
-function startGame(){
-    const home = document.getElementById("home-screen");
-    const canvasG = document.getElementById("game-canvas");
-    const scoreL = document.getElementById("score-container");
 
+function startGame() {
+ 
+
+  home.style.display = "none";
+  canvasG.style.display = "block";
+  scoreL.style.display = "block";
+
+  requestID = requestAnimationFrame(updateCanvas);
+}
+
+document.getElementById("start-button").onclick = function () {
+  startGame();
+};
+
+function resetGame(){
+  location.reload()
+}
+
+
+
+
+//Try again resets everything and runs the game again
+function tryAgain(){
+  gameOverScreen.style.display = "none";
+  home.style.display = "flex";
+ 
+
+  // score = 0;
+  // SONG.currentTime = 0;
+  resetGame();
+}
+
+//try again btn
+document.getElementById("try-again-btn").onclick = function () {
+  tryAgain();
+};
+
+
+
+function howToPlay(){
     home.style.display = "none";
-    canvasG.style.display = "block";
-    scoreL.style.display = "block";
-
-    requestID = requestAnimationFrame(updateCanvas);
+    howTo.style.display = "block";
 }
 
-document.getElementById("start-button").onclick = function() {
-    startGame();
+document.getElementById("how-to-button").onclick = function () {
+    howToPlay();
   };
 
-function pauseGame(){
+
+  function goBack(){
+    home.style.display = "flex";
+    howTo.style.display = "none";
+
+  }
+
+  document.getElementById("go-back-btn").onclick = function () {
+    goBack();
+  };
+
+  document.getElementById("go-home-btn").onclick = function () {
+    resetGame();
+  };
+
+
+addEventListener("keyup", (event) => {
+  if (event.keyCode === 32) {
+    SONG.pause();
     requestID = undefined;
-}
+  }
+});
+// function pauseGame(){
+//     requestID = undefined;
+// }
 
-document.getElementById("pause-button").onclick = function() {
-    pauseGame();
-  };
-
-
+// document.getElementById("pause-button").onclick = function() {
+//     pauseGame();
+//   };
 
 // updateCanvas();
-
