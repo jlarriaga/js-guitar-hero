@@ -8,10 +8,12 @@ const buttonArr = [false, false, false, false];
 let speed = 0;
 let gameover = false;
 let score = 0;
+const scoreLabel = document.querySelector(`#score-container span`);;
 let requestID;
+
 const SONG = new Audio();
-//SONG.src = "../audio/micancion.mp3"
-//SONG.volume = 0.2;
+SONG.src = "../assets/hero.mp3"
+SONG.volume = 0.2;
 //SONG.loop = true;
 //SONG.play();
 //SONG.pause();
@@ -19,12 +21,118 @@ const SONG = new Audio();
 
 
 const arr = [
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 1, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
   [0, 1, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [1, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
   [0, 1, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 1, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
   [0, 1, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [1, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 1],
+  [0, 0, 0, 0],
+  [0, 0, 1, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
   [0, 1, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 1],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [1, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [1, 0, 0, 0],
+  [0, 0, 1, 0],
   [0, 1, 0, 0],
-  [0, 1, 0, 0]
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 1, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 1, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [1, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 1],
+  [0, 0, 0, 0],
+  [0, 0, 1, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 1, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 1],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [1, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [1, 0, 0, 0],
+  [0, 0, 1, 0],
+  [0, 1, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 1, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 1, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [1, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 1],
+  [0, 0, 0, 0],
+  [0, 0, 1, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 1, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 1],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [1, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [1, 0, 0, 0],
+  [0, 0, 1, 0],
+
 ];
 
 function clearCanvas() {
@@ -36,7 +144,7 @@ function drawGuitar() {
     ctx.beginPath();
     ctx.moveTo(stringsArr[i], 0);
     ctx.lineTo(stringsArr[i], canvas.height);
-    ctx.strokeStyle = "white";
+    ctx.strokeStyle = "#47BDCF";
     ctx.lineWidth = 2;
     ctx.stroke();
   }
@@ -137,23 +245,27 @@ function drawSong() {
 // }
 
 function updateCanvas() {
-  speed += 1;
+  speed += 3.2;
+  SONG.play();
 
   clearCanvas();
   drawGuitar();
   drawButtons();
   drawSong();
-  if(score < -100){
-    //SONG.pause();
+  if(score < -500){
+    
     requestID = undefined
     console.log("perdimos");
   }
+  scoreLabel.innerHTML = score;
   console.log("score", score);
+
 
 //   requestAnimationFrame(updateCanvas);
   
   if (requestID) {
     requestID = requestAnimationFrame(updateCanvas);
+    
   }
 }
 
@@ -197,6 +309,31 @@ addEventListener("keyup", (event) => {
   }
 });
 
+function startGame(){
+    const home = document.getElementById("home-screen");
+    const canvasG = document.getElementById("game-canvas");
+    const scoreL = document.getElementById("score-container");
+
+    home.style.display = "none";
+    canvasG.style.display = "block";
+    scoreL.style.display = "block";
+
+    requestID = requestAnimationFrame(updateCanvas);
+}
+
+document.getElementById("start-button").onclick = function() {
+    startGame();
+  };
+
+function pauseGame(){
+    requestID = undefined;
+}
+
+document.getElementById("pause-button").onclick = function() {
+    pauseGame();
+  };
+
+
+
 // updateCanvas();
 
-requestID = requestAnimationFrame(updateCanvas);
