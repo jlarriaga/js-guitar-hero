@@ -18,8 +18,10 @@ const winScreen = document.getElementById("win-screen");
 const winScoreL = document.querySelector(`#win-score span`)
 const howTo = document.getElementById("how-to-play-screen");
 const songMp3 = document.getElementById("hero-song");
+//test for audio fixing
 songMp3.style.display = "none";
 songMp3.volume = 0.2;
+
 
 const SONG = new Audio();
 SONG.src = "../assets/hero.mp3";
