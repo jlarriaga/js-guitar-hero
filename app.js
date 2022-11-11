@@ -17,11 +17,14 @@ const gameOScore = document.querySelector(`#game-over-score span`);
 const winScreen = document.getElementById("win-screen");
 const winScoreL = document.querySelector(`#win-score span`)
 const howTo = document.getElementById("how-to-play-screen");
-
+const songMp3 = document.getElementById("hero-song");
+songMp3.style.display = "none";
+songMp3.volume = 0.2;
 
 const SONG = new Audio();
 SONG.src = "../assets/hero.mp3";
 SONG.volume = 0.2;
+// SONG.autoplay = true;
 //SONG.loop = true;
 //SONG.play();
 //SONG.pause();
@@ -264,6 +267,7 @@ function drawSong() {
 function updateCanvas() {
   speed += 3.2;
   SONG.play();
+  songMp3.play();
 
   clearCanvas();
   drawGuitar();
@@ -274,6 +278,7 @@ function updateCanvas() {
   if (score < -350) {
     requestID = undefined;
     SONG.pause();
+    songMp3.pause();
     console.log("perdimos");
     
     gameOverScreen.style.display = "block"
@@ -285,6 +290,7 @@ function updateCanvas() {
   if(score >= 500){
     requestID = undefined;
     SONG.pause();
+    songMp3.pause();
     console.log("ganaste");
     canvasG.style.display = "none"
     winScreen.style.display = "block"
@@ -413,6 +419,7 @@ document.getElementById("how-to-button").onclick = function () {
 addEventListener("keyup", (event) => {
   if (event.keyCode === 32) {
     SONG.pause();
+    songMp3.pause();
     requestID = undefined;
   }
 });
