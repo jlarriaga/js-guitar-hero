@@ -268,7 +268,7 @@ function drawSong() {
 
 function updateCanvas() {
   speed += 3.2;
-  SONG.play();
+  // SONG.play();
   songMp3.play();
 
   clearCanvas();
@@ -279,7 +279,7 @@ function updateCanvas() {
 
   if (score < -350) {
     requestID = undefined;
-    SONG.pause();
+    // SONG.pause();
     songMp3.pause();
     console.log("perdimos");
     
@@ -291,7 +291,7 @@ function updateCanvas() {
 
   if(score >= 500){
     requestID = undefined;
-    SONG.pause();
+    // SONG.pause();
     songMp3.pause();
     console.log("ganaste");
     canvasG.style.display = "none"
@@ -420,7 +420,7 @@ document.getElementById("how-to-button").onclick = function () {
 
 addEventListener("keyup", (event) => {
   if (event.keyCode === 32) {
-    SONG.pause();
+    // SONG.pause();
     songMp3.pause();
     requestID = undefined;
   }
