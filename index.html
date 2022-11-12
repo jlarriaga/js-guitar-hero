@@ -1,88 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Keyboard Hero by Jose Luis Arriaga</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
+  <body>
     <audio id="hero-song">
-
-    <source src="https://raw.githubusercontent.com/jlarriaga/js-guitar-hero/main/assets/hero.mp3" type="audio/mpeg">
-
+      <source
+        src="https://raw.githubusercontent.com/jlarriaga/js-guitar-hero/main/assets/hero.mp3"
+        type="audio/mpeg"
+      />
     </audio>
 
     <div id="home-screen">
-        <div>
-            <img src="./assets/key-hero-logo.jpeg" alt="keyboard-hero-logo" style="width:300px;">
-        </div>
-        <div>
-            <button id="start-button">Start Game</button>
-        </div>
-        <div>
-            <button id="how-to-button">How to play</button>
-        </div>
-        
-
+      <div>
+        <img
+          src="./assets/key-hero-logo.jpeg"
+          alt="keyboard-hero-logo"
+          style="width: 300px"
+        />
+      </div>
+      <div>
+        <button id="start-button">Start Game</button>
+      </div>
+      <div>
+        <button id="how-to-button">How to play</button>
+      </div>
     </div>
-    <div id="how-to-play-screen" style="width: 350px;">
-        <div id="keys">
-            <h2>How to play</h2>
-            <ul>
-                <li>Use <img src="./assets/keyboard-key-a.png" alt="a-key-img"> key to hit <img src="./assets/square-a.png" alt="green"> notes </li>
-                <li>Use <img src="./assets/keyboard-key-s.png" alt="s-key-img">  key to hit <img src="./assets/square-s.png" alt="red"> notes </li>
-                <li>Use <img src="./assets/key-d-of-a-keyboard.png" alt="d-key-img">  key hit <img src="./assets/square-dd.png" alt="blue"> notes </li>
-                <li>Use <img src="./assets/keyboard-key-f.png" alt="f-key-img"> key hit <img src="./assets/square-d.png" alt="blue"> notes </li>
-            </ul>
-        </div>
-        <div id="how-to-win">
-            <h2>Your Rock! 🤟</h2>
-            <p>Score 1,500 points to win</p>
-        </div>
+    <div id="how-to-play-screen" style="width: 350px">
+      <div id="keys">
+        <h2>How to play</h2>
+        <ul>
+          <li>
+            Use <img src="./assets/keyboard-key-a.png" alt="a-key-img" /> key to
+            hit <img src="./assets/square-a.png" alt="green" /> notes
+          </li>
+          <li>
+            Use <img src="./assets/keyboard-key-s.png" alt="s-key-img" /> key to
+            hit <img src="./assets/square-s.png" alt="red" /> notes
+          </li>
+          <li>
+            Use
+            <img src="./assets/key-d-of-a-keyboard.png" alt="d-key-img" /> key
+            hit <img src="./assets/square-dd.png" alt="blue" /> notes
+          </li>
+          <li>
+            Use <img src="./assets/keyboard-key-f.png" alt="f-key-img" /> key
+            hit <img src="./assets/square-d.png" alt="blue" /> notes
+          </li>
+        </ul>
+      </div>
+      <div id="how-to-win">
+        <h2>Your Rock! 🤟</h2>
+        <p>Score 1,500 points to win</p>
+      </div>
 
-        <div id="how-to-lose">
-            <h2>Try Again, Fail Again, Fail Better</h2>
-            <p>If you score -300 points you'll we'll need to try again!</p>
-        </div>
-        <br>
-        <br>
-        <br>
-        <button id="go-back-btn">Go back</button>
+      <div id="how-to-lose">
+        <h2>Try Again, Fail Again, Fail Better</h2>
+        <p>If you score -300 points you'll we'll need to try again!</p>
+      </div>
+      <br />
+      <br />
+      <br />
+      <button id="go-back-btn">Go back</button>
     </div>
 
     <div id="game-over-screen">
-        <div>
-            <img id="go-img" src="./assets/game_over.png" alt="game-over-text">
-        </div>
-        <div id="game-over-score">Score <br><span>0</span>
-        </div>
-        <button id="try-again-btn"> Try again</button>
-
-
+      <div>
+        <img id="go-img" src="./assets/game_over.png" alt="game-over-text" />
+      </div>
+      <div id="game-over-score">Score <br /><span>0</span></div>
+      <button id="try-again-btn">Try again</button>
     </div>
 
     <div id="win-screen">
-        <div>
-            <img id="win-img" src="./assets/you_rock.png" alt="win-text">
-        </div>
-        <div id="win-score">Score <br><span>0</span>
-        </div>
-        <button id="go-home-btn"> Go Home</button>
+      <div>
+        <img id="win-img" src="./assets/you_rock.png" alt="win-text" />
+      </div>
+      <div id="win-score">Score <br /><span>0</span></div>
+      <button id="go-home-btn">Go Home</button>
     </div>
-    
 
     <div id="background-img">
-        <div id="score-container">Score <br><span>0</span></div>
-        <canvas id="game-canvas" width="250" height="500"></canvas>
+      <div id="score-container">Score <br /><span>0</span></div>
+      <canvas id="game-canvas" width="250" height="500"></canvas>
     </div>
-   
 
     <!-- JS links -->
     <!-- <script src="js/defaultVars.js"></script> -->
     <script src="classes.js"></script>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
